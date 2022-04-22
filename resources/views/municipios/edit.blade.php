@@ -5,17 +5,26 @@
 
     <div class="divider"></div>
     <div class="row">
-        <form action="{{ route('municipios.update', $municipio->id) }}" method="POST">
+        <form action="{{ route('municipios.update', $municipios->id) }}" method="POST">
             @csrf
             @method('PATCH')
             <div class="row">
                 <div class="input-field col s12">
-                    <input type="text" id="nombre" required name="nombre" value="{{$departamentos->nombre}}">
+                    <input type="text" id="nombre" required name="nombre" value="{{$municipios->nombre}}"required>
                     <label for="nombre">NOMBRE</label>
                 </div>
                 <div class="input-field col s12">
-                    <input type="text" id="nombre" required name="codigo" value="{{$municipio->codigo}}">
+                    <input type="text" id="nombre" required name="codigo" value="{{$municipios->codigo}}" required>
                     <label for="nombre">CODIGO</label>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <select name="borrado" id="borrado" value="{{$municipios->borrado}}" required>
+                            <option value="" disabled selected>SELECCIONE EL ESTADO</option>
+                            <option value="1">ACTIVO</option>
+                            <option value="0">INACTIVO</option>
+                        </select>  
+                    </div>
                 </div>
                 <div class="row">
                     <input type="submit" class="btn indigo darken-4" value="Guardar">

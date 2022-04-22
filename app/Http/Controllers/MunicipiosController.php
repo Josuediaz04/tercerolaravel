@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departamentos;
 use App\Models\Municipios;
 use Illuminate\Http\Request;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -16,8 +17,8 @@ class MunicipiosController extends Controller
     public function index()
     {
         $municipio = Municipios::all();
-         //dd($municipio);
-        return view('municipios.index', compact('municipio'));
+        $departamento = Departamentos::all();
+        return view('municipios.index', compact('municipio', 'departamento'));
     }
 
     /**
@@ -27,7 +28,9 @@ class MunicipiosController extends Controller
      */
     public function create()
     {
-        return view('municipios.create');
+        $municipios = Municipios::all();
+        $departamentos = Departamentos::all();
+        return view('municipios.create', compact('municipios', 'departamentos'));
     }
 
     /**
@@ -39,11 +42,12 @@ class MunicipiosController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
-         
+            
             'nombre' => 'required|max:255',
             'codigo' => 'required|max:3',
             'borrado' => 'required|max:5',
-            'id_departamento'=>'required|4'
+            'id_departamento'=>'required'
+        
         ]);
         $show = Municipios::create($validate);
         return redirect('/municipios')->with('success','municipios');
@@ -68,8 +72,8 @@ class MunicipiosController extends Controller
      */
     public function edit($id)
     {
-        $municipio = municipios::findOrfail($id);
-        return view('municipios.edit', compact('municipios'));
+        $municipios = municipios::findOrfail($id);
+        return view('municipios.edit',compact('municipios'));
     }
 
     /**
@@ -83,8 +87,9 @@ class MunicipiosController extends Controller
     {
         $validate = $request->validate([
             'nombre' => 'required|max:225',
-            'codigo' => 'required',
-            'borrado'=> 'required',
+            'codigo' => 'required|max:5',
+            'borrado'=> 'required|mas:|1',
+            'id_departamento'=> 'required'
         ]);
         municipios::whereId($id)->update($validate);
         return redirect('/municipios')->with('success', 'Datos actualizados');

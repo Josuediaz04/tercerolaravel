@@ -1,28 +1,45 @@
 @extends('layouts.layout')
 @section('content')
-<div class="divider"></div>
     <div class="row">
-        <h2>REGISTRAR MUNICIPIOS</h2>
-        <form action="{{ route('municipios.store') }}" method="POST">
+        <h2>Registrar Municipios</h2>
+        <div class="divider"></div>
+    </div>
+    <div class="row">
+        <form action="{{route('municipios.store')}}" method="post">
             @csrf
             <div class="row">
                 <div class="input-field col s6">
                     <input type="text" name="nombre" required>
-                    <label for="nombre">NOMBRE MUNICIPIO</label>
+                    <label for="nombre">NOMBRE DEL MUNICPIO</label>
                 </div>
                 <div class="input-field col s6">
-                    <input type="text"name="codigo" required>
-                    <label for="codigo">CODIGO DEL MUNICIPIO</label>
+                    <input type="text" name="codigo" required>
+                    <label for="codigo">CODIGO</label>
                 </div>
-                <div class="input-field col s6">
-                    <input type="text" name="borrado" required>
-                    <label for="borrado">BORRAR</label>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <select name="borrado" id="borrado">
+                            <option value="" disabled selected>ESCOGE TU OPTION</option>
+                            <option value="1">ACTIVO</option>
+                            <option value="0">INACTIVO</option>
+                        </select>
+                    </div>
+                        <div class="input-field col s6">
+                            <select name="id_departamento" id="id_departamento">
+                                <option value="" disabled selected>Escoja su opciocion</option>
+                                @foreach ($departamentos as $departamento)
+                                <option value="{{ $departamento['id']}}">{{$departamento['nombre']}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                 </div>
+
             </div>
             <div class="row">
-                <input type="submit" class="btn indigo darken-4" value="GUARDAR">
-                <input type="reset" class="btn  yellow darken-4" value="LIMPIAR">
+                <input type="submit" class="btn red darken-4" value="Guardar">
+                <input type="reset" class="btn green darken-2" value="Limpiar">
             </div>
+        
         </form>
     </div>
 
