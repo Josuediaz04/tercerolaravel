@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Departamentos;
 use App\Models\Municipios;
 use Illuminate\Http\Request;
-use Symfony\Contracts\Service\Attribute\Required;
+
 
 class MunicipiosController extends Controller
 {
@@ -46,7 +46,7 @@ class MunicipiosController extends Controller
             'nombre' => 'required|max:255',
             'codigo' => 'required|max:3',
             'borrado' => 'required|max:5',
-            'id_departamento'=>'required'
+            'id_departamento'=>'required|max:4'
         
         ]);
         $show = Municipios::create($validate);
@@ -73,6 +73,7 @@ class MunicipiosController extends Controller
     public function edit($id)
     {
         $municipios = municipios::findOrfail($id);
+        $departamentos = Departamentos::all();
         return view('municipios.edit',compact('municipios'));
     }
 
@@ -88,8 +89,8 @@ class MunicipiosController extends Controller
         $validate = $request->validate([
             'nombre' => 'required|max:225',
             'codigo' => 'required|max:5',
-            'borrado'=> 'required|mas:|1',
-            'id_departamento'=> 'required'
+            'borrado'=> 'required|max:1',
+            'id_departamento'=> 'required|max:4'
         ]);
         municipios::whereId($id)->update($validate);
         return redirect('/municipios')->with('success', 'Datos actualizados');

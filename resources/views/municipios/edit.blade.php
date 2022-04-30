@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 <div class="row">
-    <h2>EDITANDO DEPARTAMENTO</h2>
+    <h2>EDITANDO MUNICIPIOS</h2>
 
     <div class="divider"></div>
     <div class="row">
@@ -16,6 +16,10 @@
                 <div class="input-field col s12">
                     <input type="text" id="nombre" required name="codigo" value="{{$municipios->codigo}}" required>
                     <label for="nombre">CODIGO</label>
+                </div>
+                <div class="input-field col s12">
+                    <input type="text" id="id_nombre"required name="id_departamento" value="{{$municipios->id_departamento}}" required>
+                    <label for="id_departamento">ID DEPARTAMENTO</label>
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
